@@ -2,41 +2,11 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from pages.Поле_Поиск_Главная_страница import SearchField
-from pages.Боковая_кнопка_для_карточек import SideButton
-from pages.Карта_вопрос_ответ import QuestionAnswer
-from pages.Раздел_Услуга import ChapterService
-from pages.Раздел_Атлас_Онко_Мужчина import ChapterAtlasOnco
-from pages.Раздел_Атлас_Онко_Женщина import WomanAtlasOnco
-from pages.Раздел_Мед_Организации_поле_Поиск import MedicalOrganizationsSearch
-from pages.Раздел_Медицинские_организации import MedicalOrganizations
-from pages.Раздел_Мед_Организации_поле_Поиск_по_городу import MedicalSearchCity
-from pages.Раздел_Мед_Организация_тег_Специализация import TegSpecializations
-from pages.Раздел_Мед_Организация_тег_Метод_диагностики import TegMedicalDiagnostics
-from pages.Раздел_Мед_Организации_ЛПУ import ButtonLpu
-from pages.Раздел_Специалисты import Specialists
-from pages.Раздел_Специалисты_карточка_Специалиста import SpecialistsCart
-from pages.Раздел_Специалисты_поле_Поиск_по_городу import DoctorsSearchCity
-from pages.Раздел_Специалисты_поле_Поиск import DoctorsSearch
-from pages.Раздел_Специалисты_поле_Поиск_по_клинике import DoctorsSearchClinic
-from pages.Просмотр_видео import VideoPage
-from pages.Кнопка_Все_материалы import AllMaterials
-from pages.Видео_Сортировка_по_Названию import SortByName
-from pages.Раздел_Видео_кнопка_Новинки import VideoButtonNewPage
-from pages.Раздел_Видео_поле_Поиск import VideoSearchPage
-from pages.Раздел_Видео_тег_Тема import TegTopic
-from pages.Раздел_Все_новости import AllNewsPage
-from pages.Раздел_Все_новости_кнопка_Смотреть_все import ButtonSeeAll
-from pages.Раздел_Все_новости_поле_Поиск import NewsSearchPage
-from pages.Раздел_Все_новости_блок_Теги import TegNewsPage
-from pages.Раздел_Все_новости_кнопка_Показать_все import ButtonShowAll
-from pages.Раздел_Все_новости_кнопка_Подписаться import ButtonSubscribe
 
 
 
 @pytest.fixture
 def driver():
-    # Автоматически скачивает подходящий ChromeDriver
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
     driver.maximize_window()
@@ -44,150 +14,184 @@ def driver():
     driver.quit()
 
 
-@pytest.fixture
-def search_page(driver):
-    return SearchField(driver)
-
 
 @pytest.fixture
-def side_button(driver):
-    return SideButton(driver)
+def search_page (driver):
+    from pages.main_search import SearchField
+    return SearchField (driver)
 
 
 @pytest.fixture
-def card_question_answer(driver):
-    page = QuestionAnswer(driver) 
-    page.open()
-    return page
+def side_button (driver):
+    from pages.side_menu import SideButton
+    return SideButton (driver)
 
-
-@pytest.fixture
-def chapter_service(driver):
-    return ChapterService(driver)
 
 
 @pytest.fixture
-def chapter_onco_atlas(driver):
-    return ChapterAtlasOnco(driver)
+def card_question_answer (driver):
+    from pages.qa_map import QuestionAnswer
+    return QuestionAnswer (driver)
 
 
 @pytest.fixture
-def info_woman_onco_atlas(driver):
-    return WomanAtlasOnco(driver)
+def chapter_service (driver):
+    from pages.service_page import ChapterService
+    return ChapterService (driver)
+
 
 
 @pytest.fixture
-def medical_organizations_search(driver):
+def chapter_onco_atlas (driver):
+    from pages.atlas_man import ChapterAtlasOnco
+    return ChapterAtlasOnco (driver)
+
+
+
+@pytest.fixture
+def info_woman_onco_atlas (driver):
+    from pages.atlas_woman import WomanAtlasOnco
+    return WomanAtlasOnco (driver)
+
+
+@pytest.fixture
+def medical_organizations_search (driver):
+    from pages.clinics_search import MedicalOrganizationsSearch
     return MedicalOrganizationsSearch (driver)
 
 
 @pytest.fixture
-def medical_organizations(driver):
+def medical_organizations (driver):
+    from pages.medical_organizations import MedicalOrganizations
     return MedicalOrganizations (driver)
 
 
-
 @pytest.fixture
-def medical_organizations_search_city(driver):
+def medical_organizations_search_city (driver):
+    from pages.clinics_city_search import MedicalSearchCity
     return MedicalSearchCity (driver)
 
 
-
 @pytest.fixture
-def teg_block_specialization(driver):
+def teg_block_specialization (driver):
+    from pages.specialization_tag import TegSpecializations
     return TegSpecializations (driver)
 
 
 @pytest.fixture
-def teg_block_med_diagnostics(driver):
+def teg_block_med_diagnostics (driver):
+    from pages.diagnostics_tag import TegMedicalDiagnostics
     return TegMedicalDiagnostics (driver)
 
 
-@pytest.fixture
-def button_lpu(driver):
-    return ButtonLpu(driver)
-
 
 @pytest.fixture
-def chapter_specialists(driver):
-    return Specialists(driver)
+def button_lpu (driver):
+    from pages.lpu_clinics import ButtonLpu
+    return ButtonLpu (driver)
+
 
 
 @pytest.fixture
-def cart_specialists(driver):
-    return SpecialistsCart(driver)
+def chapter_specialists (driver):
+    from pages.specialists_page import Specialists
+    return Specialists (driver)
 
 
 @pytest.fixture
-def doctors_search_city(driver):
-    return DoctorsSearchCity(driver)
+def cart_specialists (driver):
+    from pages.specialist_card import SpecialistsCart
+    return SpecialistsCart (driver)
 
 
 @pytest.fixture
-def doctors_search(driver):
-    return DoctorsSearch(driver)
+def doctors_search_city (driver):
+    from pages.specialists_city_search import DoctorsSearchCity
+    return DoctorsSearchCity (driver)
 
-
-@pytest.fixture
-def doctors_search_clinic(driver):
-    return DoctorsSearchClinic(driver)
 
 
 @pytest.fixture
-def video_page(driver):
-    return VideoPage(driver)
+def doctors_search (driver):
+    from pages.specialists_search import DoctorsSearch
+    return DoctorsSearch (driver)
 
 
 @pytest.fixture
-def all_materials(driver):
-    return AllMaterials(driver)
+def doctors_search_clinic (driver):
+    from pages.specialists_clinic_search import DoctorsSearchClinic
+    return DoctorsSearchClinic (driver)
 
 
 @pytest.fixture
-def sort_by_name(driver):
-    return SortByName(driver)
+def video_page (driver):
+    from pages.video_card import VideoPage
+    return VideoPage (driver)
+
+
+@pytest.fixture
+def all_materials (driver):
+    from pages.all_materials_button import AllMaterials
+    return AllMaterials (driver)
+
+
+
+@pytest.fixture
+def sort_by_name (driver):
+    from pages.video_sort_by_name import SortByName
+    return SortByName (driver)
 
 
 @pytest.fixture
 def video_button_new (driver):
-    return VideoButtonNewPage(driver)
+    from pages.video_new_button import VideoButtonNewPage
+    return VideoButtonNewPage (driver)
 
 
 @pytest.fixture
-def video_search_page (driver):
-    return VideoSearchPage(driver)
+def video_search_page  (driver):
+    from pages.video_search import VideoSearchPage
+    return VideoSearchPage (driver)
 
 
 @pytest.fixture
-def teg_block_topic(driver):
-    return TegTopic(driver)
+def teg_block_topic (driver):
+    from pages.video_topic_tag import TegTopic
+    return TegTopic (driver)
 
 
 @pytest.fixture
-def all_news(driver):
-    return AllNewsPage(driver)
+def all_news (driver):
+    from pages.news_page import AllNewsPage
+    return AllNewsPage (driver)
 
 
 @pytest.fixture
-def button_see_all(driver):
-    return ButtonSeeAll(driver)
+def button_see_all (driver):
+    from pages.news_watch_all_button import ButtonSeeAll
+    return ButtonSeeAll (driver)
 
 
 @pytest.fixture
-def search_news(driver):
-    return NewsSearchPage(driver)
+def search_news (driver):
+    from pages.news_search import NewsSearchPage
+    return NewsSearchPage (driver)
 
 
 @pytest.fixture
-def teg_new(driver):
-    return TegNewsPage(driver)
+def teg_new (driver):
+    from pages.news_tags import TegNewsPage
+    return TegNewsPage (driver)
 
 
 @pytest.fixture
 def button_show_all(driver):
-    return ButtonShowAll(driver)
+    from pages.news_show_all_button import ButtonShowAll
+    return ButtonShowAll (driver)
+
 
 
 @pytest.fixture
-def button_subscribe(driver):
-    return ButtonSubscribe(driver)
+def button_subscribe (driver):
+    from pages.news_subscribe_button import ButtonSubscribe
+    return ButtonSubscribe (driver)

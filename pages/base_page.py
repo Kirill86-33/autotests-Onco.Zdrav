@@ -15,13 +15,12 @@ class BasePage:
     def open(self):
         if hasattr(self, 'PAGE_URL'):
             self.driver.get(self.PAGE_URL)
-            self.wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+            self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "body")))
           
 
           
 
     def logo(self):
-        # Используем self.wait вместо find_element
         logo_element = self.wait.until(EC.element_to_be_clickable(self.LOGO))
         logo_element.click()
 
